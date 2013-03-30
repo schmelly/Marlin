@@ -1,0 +1,10 @@
+
+### For the ATmega644:
+# write fuses
+./avrdude -C ./avrdude.conf -c stk500 -p atmega644 -P /dev/ttyACM0 -B 5 -U lfuse:w:0xF7:m -U hfuse:w:0xD4:m -U efuse:w:0xFD:m
+# upload bootloader
+./avrdude -C ./avrdude.conf -c stk500 -p atmega644 -P /dev/ttyACM0 -B 1 -U flash:w:../Gen7/bootloaders/Gen7/bootloader-644-20MHz.hex
+# lock the bootloader
+# this gives an expected "verification error 0xcf != 0x0f"
+./avrdude -C ./avrdude.conf -c stk500 -p atmega644 -P /dev/ttyACM0 -B 1 -U lock:w:0xCF:m
+
